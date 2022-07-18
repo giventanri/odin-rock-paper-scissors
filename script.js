@@ -1,7 +1,9 @@
+/* Shorthands */
 const r = "rock";
 const p = "paper";
 const s = "scissors";
 
+/* Messages on console */
 const msgRoundPrompt = "Type 'rock', 'paper', or 'scissors' to play.";
 const msgRoundWin = "You won this round!";
 const msgRoundLose = "You lost this round!";
@@ -9,6 +11,7 @@ const msgRoundTie = "You tie!";
 const msgGameWin = "You won this game!";
 const msgGameLose = "You lost this game!";
 
+/* Score counter */
 let roundWon = 0;
 let roundLost = 0;
 
