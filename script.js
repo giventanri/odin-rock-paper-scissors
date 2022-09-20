@@ -1,7 +1,7 @@
 /* Shorthands */
-const r = "rock";
-const p = "paper";
-const s = "scissors";
+const rock = "rock";
+const paper = "paper";
+const scissors = "scissors";
 
 /* Messages on console */
 const msgRoundPrompt = "Type 'rock', 'paper', or 'scissors' to play.";
@@ -15,6 +15,25 @@ const msgGameLose = "You lost this game!";
 let roundWon = 0;
 let roundLost = 0;
 
+/* UI */
+let body = document.querySelector('body');
+
+let btnRock = document.createElement('button');
+btnRock.setAttribute('id', rock);
+btnRock.textContent = rock;
+
+let btnPaper = document.createElement('button');
+btnPaper.setAttribute('id', paper);
+btnPaper.textContent = paper;
+
+let btnScissors = document.createElement('button');
+btnScissors.setAttribute('id', scissors);
+btnScissors.textContent = scissors;
+
+body.appendChild(btnRock);
+body.appendChild(btnPaper);
+body.appendChild(btnScissors); 
+
 function getRandomInt(max) {
     // Positive integers excluding 0
     return Math.floor(Math.random() * max) + 1;
@@ -23,26 +42,26 @@ function getRandomInt(max) {
 function getComputerChoice() {
     let choice = getRandomInt(3);
 
-    if (choice == 1) return r;
-    else if (choice == 2) return p;
-    else if (choice == 3) return s;
+    if (choice == 1) return rock;
+    else if (choice == 2) return paper;
+    else if (choice == 3) return scissors;
     else return undefined;
 }
 
 function playRound(playerSelection, computerSelection) {
     showChoice(playerSelection, computerSelection);
     if (playerSelection == computerSelection) roundTie();
-    else if (playerSelection == r) {
-        if (computerSelection == s) roundWin();
-        else if (computerSelection == p) roundLose();
+    else if (playerSelection == rock) {
+        if (computerSelection == scissors) roundWin();
+        else if (computerSelection == paper) roundLose();
     }
-    else if (playerSelection == p) {
-        if (computerSelection == r) roundWin();
-        else if (computerSelection == s) roundLose();
+    else if (playerSelection == paper) {
+        if (computerSelection == rock) roundWin();
+        else if (computerSelection == scissors) roundLose();
     }
-    else if (playerSelection == s) {
-        if (computerSelection == p) roundWin();
-        else if (computerSelection == r) roundLose();
+    else if (playerSelection == scissors) {
+        if (computerSelection == paper) roundWin();
+        else if (computerSelection == rock) roundLose();
     }
 }
 
@@ -78,7 +97,7 @@ function game() {
     let isValidSelection = false;
     let playerSelection = "";
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) { // 5 Rounds
         showScore();
         while (!isValidSelection) {
             playerSelection = prompt(msgRoundPrompt).toLowerCase();
