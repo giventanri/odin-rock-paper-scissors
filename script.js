@@ -1,3 +1,8 @@
+/**
+*
+*
+**/
+
 /* Shorthands */
 const rock = "rock";
 const paper = "paper";
@@ -15,7 +20,7 @@ const msgGameLose = "You lost this game!";
 let roundWon = 0;
 let roundLost = 0;
 
-/* UI */
+/* UI Buttons*/
 let body = document.querySelector('body');
 
 let btnRock = document.createElement('button');
@@ -34,8 +39,23 @@ body.appendChild(btnRock);
 body.appendChild(btnPaper);
 body.appendChild(btnScissors); 
 
+/*UI Message Display */
+
+let displayScore = document.createElement('div');
+let displayMsg = document.createElement('div');
+
+body.appendChild(displayScore);
+body.appendChild(displayMsg);
+
+/**
+*
+*
+**/
+
+/* @return a random integer, 0 < x <= max
+   @param max integer
+*/
 function getRandomInt(max) {
-    // Positive integers excluding 0
     return Math.floor(Math.random() * max) + 1;
 }
 
@@ -65,6 +85,8 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+// Functions to display messages
+
 function roundTie() {
     console.log(msgRoundTie);
 }
@@ -93,6 +115,8 @@ function showChoice(playerSelection, computerSelection) {
     console.log("Computer chooses " + computerSelection + ".");
 }
 
+// Main game function
+
 function game() {
     let isValidSelection = false;
     let playerSelection = "";
@@ -118,17 +142,11 @@ function game() {
     resetScore();
 }
 
-/* Testing random distribution */
-// let rCount = 0;
-// let pCount = 0;
-// let sCount = 0;
-// for (let i = 0; i < 1000; i++) {
-//     let choice = getComputerChoice();
-//     if (choice == r) rCount++;
-//     if (choice == p) pCount++;
-//     if (choice == s) sCount++;
-// }
-// console.log(rCount+" "+pCount+" "+sCount);
+/**
+*
+* Initialize game()
+*
+**/
 
 game();
 
