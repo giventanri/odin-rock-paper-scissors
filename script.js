@@ -39,13 +39,13 @@ body.appendChild(btnRock);
 body.appendChild(btnPaper);
 body.appendChild(btnScissors); 
 
-/*UI Message Display */
+/*UI Dialog */
 
-let displayScore = document.createElement('div');
-let displayMsg = document.createElement('div');
+let dialogScore = document.createElement('div');
+let dialogMsg = document.createElement('div');
 
-body.appendChild(displayScore);
-body.appendChild(displayMsg);
+body.appendChild(dialogScore);
+body.appendChild(dialogMsg);
 
 /**
 *
@@ -88,16 +88,16 @@ function playRound(playerSelection, computerSelection) {
 // Functions to display messages
 
 function roundTie() {
-    console.log(msgRoundTie);
+    dialogMsg.textContent(msgRoundTie);
 }
 
 function roundWin() {
-    console.log(msgRoundWin);
+    dialogMsg.textContent(msgRoundWin);
     roundWon++;
 }
 
 function roundLose() {
-    console.log(msgRoundLose);
+    dialogMsg.textContent(msgRoundLose);
     roundLost++;
 }
 
@@ -107,7 +107,7 @@ function resetScore() {
 }
 
 function showScore() {
-    console.log("Player " + roundWon + "-" + roundLost + " Computer");
+    dialogScore.textContent("Player " + roundWon + "-" + roundLost + " Computer");
 }
 
 function showChoice(playerSelection, computerSelection) {
