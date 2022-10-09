@@ -15,6 +15,7 @@ const msgRoundLose = "You lost this round!";
 const msgRoundTie = "You tie!";
 const msgGameWin = "You won this game!";
 const msgGameLose = "You lost this game!";
+const msgGameWelcome = "Play against the computer. Choose your first move!"
 
 /* Score counter */
 let roundWon = 0;
@@ -26,26 +27,43 @@ let body = document.querySelector('body');
 let btnRock = document.createElement('button');
 btnRock.setAttribute('id', rock);
 btnRock.textContent = rock;
+btnRock.addEventListener('click', () => {
+    playRound(rock, getComputerChoice());
+});
 
 let btnPaper = document.createElement('button');
 btnPaper.setAttribute('id', paper);
 btnPaper.textContent = paper;
+btnPaper.addEventListener('click', () => {
+    playerSelection = paper;
+    playRound(paper, getComputerChoice());
+});
 
 let btnScissors = document.createElement('button');
 btnScissors.setAttribute('id', scissors);
 btnScissors.textContent = scissors;
+btnScissors.addEventListener('click', () => {
+    playerSelection = scissors;
+    playRound(scissors, getComputerChoice());
+});
 
 body.appendChild(btnRock);
 body.appendChild(btnPaper);
 body.appendChild(btnScissors); 
 
+
+
 /*UI Dialog */
 
 let dialogScore = document.createElement('div');
-let dialogMsg = document.createElement('div');
+let dialogChoice = document.createElement('div');
+let dialogRound = document.createElement('div');
+let dialogGame = document.createElement('div');
 
 body.appendChild(dialogScore);
-body.appendChild(dialogMsg);
+body.appendChild(dialogChoice);
+body.appendChild(dialogRound);
+body.appendChild(dialogGame);
 
 /**
 *
@@ -83,21 +101,22 @@ function playRound(playerSelection, computerSelection) {
         if (computerSelection == paper) roundWin();
         else if (computerSelection == rock) roundLose();
     }
+    referee();
 }
 
 // Functions to display messages
 
 function roundTie() {
-    dialogMsg.textContent(msgRoundTie);
+    dialogRound.textContent = msgRoundTie;
 }
 
 function roundWin() {
-    dialogMsg.textContent(msgRoundWin);
+    dialogRound.textContent = msgRoundWin;
     roundWon++;
 }
 
 function roundLose() {
-    dialogMsg.textContent(msgRoundLose);
+    dialogRound.textContent = msgRoundLose;
     roundLost++;
 }
 
@@ -107,46 +126,36 @@ function resetScore() {
 }
 
 function showScore() {
-    dialogScore.textContent("Player " + roundWon + "-" + roundLost + " Computer");
+    dialogScore.textContent = "Player " + roundWon + "-" + roundLost + " Computer";
 }
 
 function showChoice(playerSelection, computerSelection) {
-    console.log("You choose " + playerSelection + ".");
-    console.log("Computer chooses " + computerSelection + ".");
+    dialogChoice.textContent = "You choose " + playerSelection + ". " 
+                             + "Computer chooses " + computerSelection + ".";
 }
 
-// Main game function
+function disableButtons() {
+    btnRock.disabled = true;
+    btnPaper.disabled = true;
+    btnScissors.disabled = true; 
+}
+
+function referee() {
+    dialogGame.textContent = "";
+    showScore()
+    let winCondition = roundWon >= 5 || roundLost >= 5;
+    if (winCondition) {
+        disableButtons();
+        (roundWon > roundLost)
+        ? dialogGame.textContent = msgGameWin 
+        : dialogGame.textContent = msgGameLose;
+        dialogGame.textContent += " Refresh to play again.";
+    }
+}
 
 function game() {
-    let isValidSelection = false;
-    let playerSelection = "";
-
-    for (let i = 0; i < 5; i++) { // 5 Rounds
-        showScore();
-        while (!isValidSelection) {
-            playerSelection = prompt(msgRoundPrompt).toLowerCase();
-            if (playerSelection == r 
-             || playerSelection == p 
-             || playerSelection == s) {
-                isValidSelection = true;
-            }
-        }
-        playRound(playerSelection, getComputerChoice());
-        isValidSelection = false;
-        playerSelection = "";
-    }
-
-    (roundWon > roundLost)? console.log(msgGameWin) : console.log(msgGameLose);
-    console.log("Final score:");
-    showScore();
-    resetScore();
+    showScore()
+    dialogGame.textContent = msgGameWelcome;
 }
 
-/**
-*
-* Initialize game()
-*
-**/
-
 game();
-
